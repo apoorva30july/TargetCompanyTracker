@@ -48,12 +48,12 @@ export class TargetCompanyComponent implements OnInit {
 
   public barChartColors:Array<any> = [
     { // grey
-      backgroundColor: 'rgba(255,255,102,1)',
-      borderColor: 'rgba(255,255,102,1)',
-      pointBackgroundColor: 'rgba(255,255,102,1)',
+      backgroundColor: 'rgba(211,211,211,1)',
+      borderColor: 'rgba(169,169,169,1)',
+      pointBackgroundColor: 'rgba(169,169,169,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(255,255,102,1)'
+      pointHoverBorderColor: 'rgba(169,169,169,1)'
     }]
   
   getCompanyNamesForChart = function () {
@@ -96,7 +96,7 @@ export class TargetCompanyComponent implements OnInit {
 
   // This method associate to Save Button.
   onSave() {
-    if (this.submitType === 'Save') { 
+    if (this.submitType === 'Save'  &&  (this.companyModel.financialPerformance!=='' && this.companyModel.companyName!=='' && this.companyModel.keyContact !=='' && this.companyModel.status!=='Select Status')) { 
       // Push company model object into company list.
       this.companyModel.ID=(this.targetcompanies.length + 1).toString()
       this.targetcompanies.push(this.companyModel);
