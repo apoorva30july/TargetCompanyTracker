@@ -1,0 +1,86 @@
+<div class="container">
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#ID</th>
+          <th>Company Name</th>
+          <th>Key Contact ID</th>
+          <th>Status</th>
+          <th>Financial Performance</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of targetcompanies; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ company.companyName }}</td>
+          <td>{{ company.keyContact}}</td>
+          <td>{{ company.status }}</td>
+          <td>{{ company.financialPerformance }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="onEdit(i)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <button type="submit" class="btn btn-success" (click)="onNew()">+ Add New Target Company</button>
+    </div>
+  </div>
+  <br>
+  <div *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="companyname-input" class="col-3 col-form-label"><b>Company Name</b></label>
+        <div class="col-8">
+          <input class="form-control" type="text" maxlength="20" [(ngModel)]="companyModel.companyName" name="companyName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="keycontact-input" class="col-3 col-form-label"><b>Key Contact ID</b></label>
+        <div class="col-8">
+          <input class="form-control" type="email" [(ngModel)]="companyModel.keyContact" name="keyContact">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="financialperformance-input" class="col-3 col-form-label"><b>Financial Performance(%)</b></label>
+        <div class="col-8">
+          <input class="form-control" type="number" [(ngModel)]="companyModel.financialPerformance" name="financialPerformance">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="status-input" class="col-3 col-form-label"><b>Status</b></label>
+        <div class="dropdown" ngbDropdown myDrop="ngbDropdown" style="padding-left: 15px">
+          <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="status" ngbDropdownToggle>{{companyModel.status}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button type="button" class="dropdown-item" *ngFor="let status of statuses" (click)="onChangeStatus(status)">{{status}}</button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">{{submitType}}</button>&nbsp;
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+  <br>
+  <div class="col-10">
+    <div>
+      <div style="display: block;">
+        <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"
+        [colors]="barChartColors">
+      </canvas>
+      </div>
+    </div>
+  </div>
+</div>
